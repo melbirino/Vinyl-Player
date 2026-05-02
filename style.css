@@ -1,5 +1,5 @@
 body {
-    background-color: #3d89dd;
+    background-color: #030a7e;
     color: #333;
     display: flex;
     justify-content: center;
@@ -9,7 +9,6 @@ body {
     font-family: Arial, sans-serif;
     overflow-x: hidden;
 }
-
 .player-container {
     position: relative;
     width: 350px;
