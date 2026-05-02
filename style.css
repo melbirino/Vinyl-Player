@@ -30,6 +30,7 @@ body {
     background-position: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     position: relative;
+    z-index: 1;
 }
 
 .tonearm {
@@ -41,7 +42,7 @@ body {
     background: #333;
     transform-origin: top right;
     transform: rotate(-30deg);
-    transition: transform 0.5s ease;
+    transition: transform 0.8s ease-in-out;
     z-index: 10;
 }
 
@@ -56,17 +57,18 @@ body {
     border-radius: 4px;
 }
 
-.tonearm.playing {
+.tonearm.active {
     transform: rotate(25deg);
 }
 
 .controls {
     position: absolute;
-    bottom: -60px;
+    bottom: -70px;
     display: flex;
     gap: 20px;
     width: 100%;
     justify-content: center;
+    z-index: 20;
 }
 
 button {

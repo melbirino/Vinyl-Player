@@ -33,14 +33,17 @@ function spinRecord() {
 playBtn.addEventListener('click', () => {
     if (!isPlaying) {
         audio.play().catch(error => console.error("Playback failed:", error));
+        tonearm.classList.add('active');
 
-        tonearm.classList.add('playing');
         isPlaying = true;
         spinRecord();
     } else {
         audio.pause();
 
         cancelAnimationFrame(animationFrameId);
+
+        tonearm.classList.remove('active');
+
         isPlaying = false;
     }
     updatePlayButtonState();
@@ -51,7 +54,8 @@ stopBtn.addEventListener('click', () => {
     audio.currentTime = 0;
 
     cancelAnimationFrame(animationFrameId);
-    tonearm.classList.remove('playing');
+    tonearm.classList.remove('active');
+
     rotation = 0;
     record.style.transform = `rotate(0deg)`;
 
@@ -61,7 +65,7 @@ stopBtn.addEventListener('click', () => {
 
 audio.addEventListener('ended', () => {
     cancelAnimationFrame(animationFrameId);
-    tonearm.classList.remove('playing');
+    tonearm.classList.remove('active');
 
     rotation = 0;
     record.style.transform = `rotate(0deg)`;
