@@ -9,6 +9,7 @@ body {
     font-family: Arial, sans-serif;
     overflow-x: hidden;
 }
+
 .player-container {
     position: relative;
     width: 350px;
@@ -17,6 +18,10 @@ body {
     justify-content: center;
     align-items: center;
     margin: 20px;
+    background-color: #ffffff;
+    border: 10px solid #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .record {
@@ -38,11 +43,12 @@ body {
     right: -20px;
     width: 100px;
     height: 10px;
-    background: #333;
+    background: #000000;
     transform-origin: top right;
-    transform: rotate(-30deg);
+    transform: rotate(-45deg);
     transition: transform 0.8s ease-in-out;
     z-index: 10;
+    border-radius: 5px;
 }
 
 .tonearm::before {
@@ -52,8 +58,9 @@ body {
     top: -5px;
     width: 30px;
     height: 20px;
-    background: #111;
+    background: #000000;
     border-radius: 4px;
+    border: 2px solid #ffffff;
 }
 
 .tonearm.active {
@@ -74,19 +81,21 @@ button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    background: #333;
-    color: #fff;
-    border: none;
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #000000;
     border-radius: 5px;
-    transition: background 0.2s;
+    transition: all 0.2s;
     min-width: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-    background: #555;
+    background: #333333;
+    border-color: #333333;
 }
 
 button:active {

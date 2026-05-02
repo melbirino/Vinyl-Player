@@ -30,19 +30,25 @@ function spinRecord() {
     animationFrameId = requestAnimationFrame(spinRecord);
 }
 
+function setTonearmPosition(shouldBeActive) {
+    if (shouldBeActive) {
+        tonearm.classList.add('active');
+    } else {
+        tonearm.classList.remove('active');
+    }
+}
+
 playBtn.addEventListener('click', () => {
     if (!isPlaying) {
         audio.play().catch(error => console.error("Playback failed:", error));
-        tonearm.classList.add('active');
+        setTonearmPosition(true);
 
         isPlaying = true;
         spinRecord();
     } else {
         audio.pause();
-
         cancelAnimationFrame(animationFrameId);
-
-        tonearm.classList.remove('active');
+        setTonearmPosition(false);
 
         isPlaying = false;
     }
@@ -54,7 +60,7 @@ stopBtn.addEventListener('click', () => {
     audio.currentTime = 0;
 
     cancelAnimationFrame(animationFrameId);
-    tonearm.classList.remove('active');
+    setTonearmPosition(false);
 
     rotation = 0;
     record.style.transform = `rotate(0deg)`;
@@ -65,7 +71,7 @@ stopBtn.addEventListener('click', () => {
 
 audio.addEventListener('ended', () => {
     cancelAnimationFrame(animationFrameId);
-    tonearm.classList.remove('active');
+    setTonearmPosition(false);
 
     rotation = 0;
     record.style.transform = `rotate(0deg)`;
