@@ -16,8 +16,20 @@
         <audio id="audioPlayer" src="music.mp3"></audio>
 
         <div class="controls">
-            <button id="playBtn">Play</button>
-            <button id="stopBtn">Stop</button>
+            <button id="playBtn">
+                <svg id="playIcon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                </svg>
+                <svg id="pauseIcon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"
+                    style="display: none;">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                </svg>
+            </button>
+            <button id="stopBtn">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path d="M6 6h12v12H6z" />
+                </svg>
+            </button>
         </div>
     </div>
 
