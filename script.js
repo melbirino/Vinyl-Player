@@ -8,7 +8,7 @@ let isPlaying = false;
 
 playBtn.addEventListener('click', () => {
     if (!isPlaying) {
-        audio.play();
+        audio.play().catch(error => console.error("Playback failed:", error));
         
         record.classList.add('spinning');
         tonearm.classList.add('playing');
