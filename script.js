@@ -40,16 +40,14 @@ function setTonearmPosition(shouldBeActive) {
 
 playBtn.addEventListener('click', () => {
     if (!isPlaying) {
-        audio.play().catch(error => console.error("Playback failed:", error));
+        audio.play().catch(error => console.error("Ошибка:", error));
         setTonearmPosition(true);
-
         isPlaying = true;
         spinRecord();
     } else {
         audio.pause();
         cancelAnimationFrame(animationFrameId);
         setTonearmPosition(false);
-
         isPlaying = false;
     }
     updatePlayButtonState();
@@ -58,13 +56,10 @@ playBtn.addEventListener('click', () => {
 stopBtn.addEventListener('click', () => {
     audio.pause();
     audio.currentTime = 0;
-
     cancelAnimationFrame(animationFrameId);
     setTonearmPosition(false);
-
     rotation = 0;
     record.style.transform = `rotate(0deg)`;
-
     isPlaying = false;
     updatePlayButtonState();
 });
@@ -72,10 +67,8 @@ stopBtn.addEventListener('click', () => {
 audio.addEventListener('ended', () => {
     cancelAnimationFrame(animationFrameId);
     setTonearmPosition(false);
-
     rotation = 0;
     record.style.transform = `rotate(0deg)`;
-
     isPlaying = false;
     updatePlayButtonState();
 });

@@ -7,7 +7,6 @@ body {
     min-height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
-    overflow-x: hidden;
 }
 
 .player-container {
@@ -17,104 +16,124 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+
     margin: 20px;
     background-color: #ffffff;
-    border: 10px solid #ffffff;
+    border: none;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: visible;
 }
 
 .record {
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background-color: #111;
-    background-image: url('./img/vinyl5.png');
+    background-color: #ffffff;
+    background-image: url('./img/vinyl7.png');
     background-size: cover;
     background-position: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     position: relative;
     z-index: 1;
+    transform: rotate(0deg);
 }
 
 .tonearm {
     position: absolute;
-    top: -20px;
-    right: -20px;
-    width: 100px;
-    height: 10px;
-    background: #000000;
-    transform-origin: top right;
-    transform: rotate(-45deg);
+    top: 30px;
+    right: 30px;
+    width: 140px;
+    height: 14px;
+    background: #222;
+    transform-origin: 95% 50%;
+    transform: rotate(-40deg);
     transition: transform 0.8s ease-in-out;
     z-index: 10;
-    border-radius: 5px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .tonearm::before {
     content: '';
     position: absolute;
     left: 0;
-    top: -5px;
-    width: 30px;
+    top: -3px;
+    width: 24px;
     height: 20px;
-    background: #000000;
-    border-radius: 4px;
-    border: 2px solid #ffffff;
+    background: #000;
+    border-radius: 3px;
+}
+
+.tonearm::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: -3px;
+    width: 20px;
+    height: 20px;
+    background: #444;
+    border-radius: 50%;
+    border: 2px solid #fff;
 }
 
 .tonearm.active {
-    transform: rotate(25deg);
+    transform: rotate(20deg);
 }
 
 .controls {
     position: absolute;
-    bottom: -70px;
+    bottom: -80px;
+    /* Чуть опустил, чтобы круглые кнопки не обрезались */
     display: flex;
-    gap: 20px;
+    gap: 30px;
+    /* Расстояние между кнопками */
     width: 100%;
     justify-content: center;
     z-index: 20;
 }
 
 button {
-    padding: 10px 20px;
+    /* Делаем кнопку круглой */
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    border-radius: 50%;
+
+    /* Убираем минимальную ширину текста */
+    min-width: auto;
+
     font-size: 16px;
     cursor: pointer;
     background: #ffffff;
-    color: #000000;
-    border: 2px solid #ffffff;
-    border-radius: 5px;
-    transition: all 0.2s;
-    min-width: 80px;
+    color: #030a7e;
+    /* Цвет иконок под цвет фона страницы для гармонии */
+    border: 2px solid #e0e0e0;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+    /* Тень для объема */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s;
 }
 
 button:hover {
-    background: #e0e0e0;
-    border-color: #e0e0e0;
+    background: #f8f8f8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    border-color: #cccccc;
 }
 
 button:active {
-    transform: scale(0.98);
+    transform: scale(0.95) translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* Адаптив для мобильных */
 @media (max-width: 400px) {
     .player-container {
         transform: scale(0.85);
-    }
-}
-
-@media (max-width: 320px) {
-    .player-container {
-        transform: scale(0.7);
-    }
-
-    button {
-        padding: 8px 16px;
-        font-size: 14px;
     }
 }
