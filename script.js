@@ -3,72 +3,63 @@ const tonearm = document.getElementById('tonearm');
 const playBtn = document.getElementById('playBtn');
 const stopBtn = document.getElementById('stopBtn');
 const audio = document.getElementById('audioPlayer');
-
 const playIcon = document.getElementById('playIcon');
 const pauseIcon = document.getElementById('pauseIcon');
 
 let isPlaying = false;
-let rotation = 0;
-let animationFrameId;
 
 function updatePlayButtonState() {
     if (isPlaying) {
         playIcon.style.display = 'none';
         pauseIcon.style.display = 'block';
+        playBtn.setAttribute('aria-label', 'Пауза');
     } else {
         playIcon.style.display = 'block';
         pauseIcon.style.display = 'none';
+        playBtn.setAttribute('aria-label', 'Воспроизвести');
     }
 }
 
-function spinRecord() {
-    rotation += 0.5;
-    if (rotation >= 360) {
-        rotation -= 360;
-    }
-    record.style.transform = `rotate(${rotation}deg)`;
-    animationFrameId = requestAnimationFrame(spinRecord);
-}
-
-function setTonearmPosition(shouldBeActive) {
-    if (shouldBeActive) {
-        tonearm.classList.add('active');
-    } else {
-        tonearm.classList.remove('active');
-    }
+function stopPlayback(resetTime) {
+    audio.pause();
+    if (resetTime) audio.currentTime = 0;
+    record.classList.remove('playing');
+    tonearm.classList.remove('active');
+    isPlaying = false;
+    updatePlayButtonState();
 }
 
 playBtn.addEventListener('click', () => {
     if (!isPlaying) {
-        audio.play().catch(error => console.error("Ошибка:", error));
-        setTonearmPosition(true);
-        isPlaying = true;
-        spinRecord();
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                record.classList.add('playing');
+                tonearm.classList.add('active');
+                isPlaying = true;
+                updatePlayButtonState();
+            }).catch(error => {
+                if (error.name === 'NotAllowedError') {
+                    alert('Браузер заблокировал автовоспроизведение. Нажмите кнопку еще раз.');
+                }
+            });
+        }
     } else {
-        audio.pause();
-        cancelAnimationFrame(animationFrameId);
-        setTonearmPosition(false);
-        isPlaying = false;
+        stopPlayback(false);
     }
-    updatePlayButtonState();
 });
 
 stopBtn.addEventListener('click', () => {
-    audio.pause();
-    audio.currentTime = 0;
-    cancelAnimationFrame(animationFrameId);
-    setTonearmPosition(false);
-    rotation = 0;
-    record.style.transform = `rotate(0deg)`;
-    isPlaying = false;
-    updatePlayButtonState();
+    stopPlayback(true);
 });
 
 audio.addEventListener('ended', () => {
-    cancelAnimationFrame(animationFrameId);
-    setTonearmPosition(false);
-    rotation = 0;
-    record.style.transform = `rotate(0deg)`;
-    isPlaying = false;
-    updatePlayButtonState();
+    stopPlayback(false);
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+        e.preventDefault();
+        playBtn.click();
+    }
 });

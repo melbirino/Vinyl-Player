@@ -1,3 +1,7 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body {
     background-color: #030a7e;
     color: #333;
@@ -12,17 +16,23 @@ body {
 .player-container {
     position: relative;
     width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding-bottom: 90px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.turntable {
+    position: relative;
+    width: 350px;
     height: 350px;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    margin: 20px;
-    background-color: #ffffff;
-    border: none;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    overflow: visible;
 }
 
 .record {
@@ -30,13 +40,23 @@ body {
     height: 300px;
     border-radius: 50%;
     background-color: #ffffff;
-    background-image: url('./img/vinyl8.png');
+    background-image: url('./img/vinyl9.png');
     background-size: cover;
     background-position: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     position: relative;
     z-index: 1;
-    transform: rotate(0deg);
+    animation: spin 2s linear infinite;
+    animation-play-state: paused;
+}
+
+.record.playing {
+    animation-play-state: running;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .tonearm {
@@ -83,38 +103,28 @@ body {
 
 .controls {
     position: absolute;
-    bottom: -80px;
-    /* Чуть опустил, чтобы круглые кнопки не обрезались */
+    bottom: 15px;
     display: flex;
     gap: 30px;
-    /* Расстояние между кнопками */
     width: 100%;
     justify-content: center;
     z-index: 20;
 }
 
 button {
-    /* Делаем кнопку круглой */
     width: 60px;
     height: 60px;
     padding: 0;
     border-radius: 50%;
-
-    /* Убираем минимальную ширину текста */
     min-width: auto;
-
     font-size: 16px;
     cursor: pointer;
     background: #ffffff;
     color: #030a7e;
-    /* Цвет иконок под цвет фона страницы для гармонии */
     border: 2px solid #e0e0e0;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* Тень для объема */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: all 0.2s;
 }
@@ -131,7 +141,6 @@ button:active {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Адаптив для мобильных */
 @media (max-width: 400px) {
     .player-container {
         transform: scale(0.85);
